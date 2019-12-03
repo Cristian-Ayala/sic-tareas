@@ -1,0 +1,26 @@
+.backgroudImage {
+    filter: invert(22%);
+    background-image: url("../../assets/img/home-bg.jpg");
+    background-color: rgb(255, 255, 255);
+    background-blend-mode: exclusion;
+    color: #4200ff;
+    font-size: 25px;
+    font-family: Lora, serif;
+    font-weight: 800;
+    text-shadow: #FFF 0px 0px 5px, #FFF 0px 0px 10px, #FFF 0px 0px 15px, #192ddc 0px 0px 20px, #797efe 0px 0px 30px, #322ecf 0px 0px 40px, #0029ff 0px 0px 50px, #fe9800 0px 0px 75px;
+}
+
+.selected {
+    background: lightslategrey;
+}
+
+.disable {
+    pointer-events: none;
+    background: gainsboro;
+    color: aliceblue;
+}
+
+.warning {
+    background-color: darkorange;
+    border-color: darkorange;
+}

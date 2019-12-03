@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>About us - SIC2019</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="assets/css/untitled.css">
+</head>
+
+<body>
+    <div id="cuentas">
+        <nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
+            <div class="container"><a class="navbar-brand d-flex align-items-center" href="index.html"><i class="fa fa-money tada animated infinite" style="font-size: 50px;/*color: rgb(255,255,255);*/padding-right: 20px;"></i>SIC2019</a><button data-toggle="collapse" data-target="#navbarResponsive"
+                    class="navbar-toggler" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="#">About us</a></li>
+                        <li class="nav-item" role="presentation"></li>
+                        <li class="nav-item" role="presentation"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <header class="masthead" style="background-image:url('assets/img/sic-jej.png');">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-lg-8 mx-auto">
+                        <div class="site-heading"></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div>
+            <ul class="nav nav-tabs nav-fill">
+
+
+                <li class="nav-item" data-bs-hover-animate="pulse"><a class="nav-link" v-bind:class="{'backgroudImage':  cateSelected==1}" v-on:click.prevent="cateSelected=1">Cuenta</a></li>
+                <li class="nav-item" data-bs-hover-animate="pulse"><a class="nav-link" v-bind:class="{'backgroudImage':  cateSelected==2, 'disable':cuentaSelected==1}" v-on:click.prevent="cateSelected=2">Sub-Cuenta</a></li>
+            </ul>
+            <div class="tab-content">
+            </div>
+            <!-- fin del tab 1 -->
+        </div>
+
+        <!-- ------------------------------------------------- inicio del tab 1----------------------------------------- -->
+
+        <div class="tab-pane" id="tab-1" v-show="cateSelected===1">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">Nombre</th>
+                            <th class="text-center">Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- v-bind:class="{'backgroudImage':  ordenSelected.idOrden==orden.idOrden}" -->
+                        <tr v-for="(cuenta,index) in cuentas" v-on:click="cuentaSelected=cuenta" v-bind:class="{'selected':  cuentaSelected.idCuenta===cuenta.idCuenta}">
+                            <td class="text-center">{{cuenta.idCuenta}}</td>
+                            <td class="text-center">{{cuenta.nombreCuenta}}</td>
+                            <td class="text-center">{{cuenta.descripcionCuenta}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="width: 100%;height: 100%;padding-bottom: 50px;"><button class="btn btn-danger pull-right" data-toggle="modal" data-target="#mdlEliminar" type="button"><i class="fa fa-minus"></i>&nbsp;Eliminar</button>
+                <button class="btn btn-primary pull-right" data-target="#mdlAgregar" data-toggle="modal" type="button"><i class="fa fa-plus"></i>&nbsp;AGregar</button>
+                <button class="btn warning pull-right" data-toggle="modal" data-target="#mdlEditar" type="button"></i>&nbsp;Editar</button>
+            </div>
+        </div>
+        <!-- ------------------------------------------------- Fin del tab 1----------------------------------------- -->
+
+        <!-- ------------------------------------------------- inicio del tab 2----------------------------------------- -->
+        <div class="tab-pane" id="tab-2" v-show="cateSelected===2">
+            <div>
+                <p class="text-center">Trabajando en la sub-cuenta de la cuenta mayor: "{{cuentaSelected.nombreCuenta}}"</p>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">Nombre</th>
+                            <th class="text-center">Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- v-on:click="subCuentaSelected=subCuenta" -->
+                        <tr v-for="(subCuenta,index) in subCuentas" v-on:click="subCuentaSelected=subCuenta" v-show="subCuenta.idCuenta===cuentaSelected.idCuenta" v-bind:class="{'selected':  subCuentaSelected.idSubCuenta===subCuenta.idSubCuenta}">
+                            <td class="text-center">{{subCuenta.idCuenta}}0{{subCuenta.idSubCuenta}}</td>
+                            <td class="text-center">{{subCuenta.nombreSubCuenta}}</td>
+                            <td class="text-center">{{subCuenta.descripcionSubCuenta}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="width: 100%;height: 100%;padding-bottom: 50px;"><button class="btn btn-danger pull-right" data-toggle="modal" data-target="#mdlEliminarSubCuenta" type="button"><i class="fa fa-minus"></i>&nbsp;Eliminar</button>
+                <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#mdlAgregarSubCuenta" type="button"><i class="fa fa-plus"></i>&nbsp;AGregar</button>
+                <button class="btn warning pull-right" data-toggle="modal" data-target="#mdlSubCuentaEditar" type="button"></i>&nbsp;Editar</button>
+
+            </div>
+        </div>
+        <!-- ------------------------------------------------- Fin del tab 2----------------------------------------- -->
+        <hr>
+        <!-- -----------------------------------------------modal agregar Cuenta ------------------------------------------>
+        <div class="modal fade" role="dialog" tabindex="-1" id="mdlAgregar">
+            <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Agregar</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <div class="input-group" style="padding-bottom: 10px;">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user" style="font-size: 24px;"></i></span></div><input class="flex-fill" type="text" placeholder="   ID de la cuenta" required="" v-model="nuevaCuenta.idCuenta">
+                        </div>
+                        <div class="input-group" style="padding-bottom: 10px;">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user" style="font-size: 24px;"></i></span></div><input class="flex-fill" type="text" placeholder="   Nombre de la cuenta" required="" v-model="nuevaCuenta.nombreCuenta">
+                        </div>
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-pencil" style="font-size: 24px;"></i></span></div><input class="flex-fill" type="text" placeholder="   Descripción" required="" v-model="nuevaCuenta.descripcionCuenta">
+                        </div>
+                    </div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">CERRAR</button><button class="btn btn-primary" type="button" data-dismiss="modal" @click="nuevaCuentaDB();">Guardar</button></div>
+                </div>
+            </div>
+        </div>
+        <!-- ----------------------------------------------- fin modal agregar Cuenta ------------------------------------------>
+
+
+        <!-- -----------------------------------------------modal editar Cuenta ------------------------------------------>
+        <div class="modal fade" role="dialog" tabindex="-1" id="mdlEditar">
+            <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Editar</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <div class="input-group" style="padding-bottom: 10px;">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user" style="font-size: 24px;"></i></span></div><input class="flex-fill" type="text" placeholder="   ID de la cuenta" required="" v-model="cuentaSelected.idCuenta">
+                        </div>
+                        <div class="input-group" style="padding-bottom: 10px;">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user" style="font-size: 24px;"></i></span></div><input class="flex-fill" type="text" placeholder="   Nombre de la cuenta" required="" v-model="cuentaSelected.nombreCuenta">
+                        </div>
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-pencil" style="font-size: 24px;"></i></span></div><input class="flex-fill" type="text" placeholder="   Descripción" required="" v-model="cuentaSelected.descripcionCuenta">
+                        </div>
+                    </div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">CERRAR</button><button class="btn btn-primary" type="button" data-dismiss="modal" @click="modificarCuenta();">Guardar</button></div>
+                </div>
+            </div>
+        </div>
+        <!-- ----------------------------------------------- fin editar agregar Cuenta ------------------------------------------>
+
+
+        <!-- Agregar ------------------------SubCuenta -->
+        <div class="modal fade" role="dialog" tabindex="-1" id="mdlAgregarSubCuenta">
+            <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Agregar Sub Cuenta</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <div class="input-group" style="padding-bottom: 10px;">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user" style="font-size: 24px;"></i></span></div><input class="flex-fill" type="text" placeholder="   ID de la cuenta" required="" v-model="cuentaSelected.idCuenta"></div>
+                        <div class="input-group" style="padding-bottom: 10px;">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user" style="font-size: 24px;"></i></span></div><input class="flex-fill" type="text" placeholder="   ID de la Sub cuenta" v-model="nuevaSubCuenta.idSubCuenta"></div>
+                        <div class="input-group" style="padding-bottom: 10px;">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user" style="font-size: 24px;"></i></span></div><input class="flex-fill" type="text" placeholder="   Nombre de la Sub cuenta" v-model="nuevaSubCuenta.nombreSubCuenta"></div>
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-pencil" style="font-size: 24px;"></i></span></div><input class="flex-fill" type="text" placeholder="   Descripción" v-model="nuevaSubCuenta.descripcionSubCuenta"></div>
+                    </div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">CERRAR</button><button class="btn btn-primary" type="button" data-dismiss="modal" @click="agregarSubCuenta();">Guardar</button></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- moidificar ------------------------SubCuenta -->
+        <div class="modal fade" role="dialog" tabindex="-1" id="mdlSubCuentaEditar">
+            <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Agregar Sub Cuenta</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <div class="input-group" style="padding-bottom: 10px;">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user" style="font-size: 24px;"></i></span></div><input class="flex-fill" type="text" placeholder="   ID de la cuenta" required="" v-model="cuentaSelected.idCuenta"></div>
+                        <div class="input-group" style="padding-bottom: 10px;">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user" style="font-size: 24px;"></i></span></div><input class="flex-fill" type="text" placeholder="   ID de la Sub cuenta" v-model="subCuentaSelected.idSubCuenta"></div>
+                        <div class="input-group" style="padding-bottom: 10px;">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user" style="font-size: 24px;"></i></span></div><input class="flex-fill" type="text" placeholder="   Nombre de la Sub cuenta" v-model="subCuentaSelected.nombreSubCuenta"></div>
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-pencil" style="font-size: 24px;"></i></span></div><input class="flex-fill" type="text" placeholder="   Descripción" v-model="subCuentaSelected.descripcionSubCuenta"></div>
+                    </div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">CERRAR</button><button class="btn btn-primary" type="button" data-dismiss="modal" @click="modificarSubCuenta();">Guardar</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" role="dialog" tabindex="-1" id="mdlAgregarDetalle">
+            <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Agregar</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <div class="input-group" style="padding-bottom: 10px;">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user" style="font-size: 24px;"></i></span></div><input class="flex-fill" type="text" placeholder="   Nombre de la cuenta" required=""></div>
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-pencil" style="font-size: 24px;"></i></span></div><input class="flex-fill" type="text" placeholder="   Descripción" required=""></div>
+                    </div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">CERRAR</button><button class="btn btn-primary" type="button">Guardar</button></div>
+                </div>
+            </div>
+        </div>
+
+        <!--------------------------- eliminar cuenta -->
+        <div class="modal fade" role="dialog" tabindex="-1" id="mdlEliminar">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Eliminar</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <p>¿Está seguro que quiere eliminar a la cuenta con ID: "{{cuentaSelected.idCuenta}}"?</p>
+                    </div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">cerrar</button><button class="btn btn-danger" type="button" data-dismiss="modal" @click="eliminarCuenta();">Eliminar</button></div>
+                </div>
+            </div>
+        </div>
+        <!--------------------------- fin modal eliminar cuenta -->
+
+        <div class="modal fade" role="dialog" tabindex="-1" id="mdlEliminarSubCuenta" href="#tab-2">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Eliminar</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <p>¿Está seguro que quiere eliminar a la sub cuenta con ID: {{cuentaSelected.idCuenta}}0{{subCuentaSelected.idSubCuenta}}?</p>
+                    </div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">cerrar</button><button class="btn btn-danger" type="button" data-dismiss="modal" @click="EliminarSubCuenta();">Eliminar</button></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" role="dialog" tabindex="-1" id="mdlEliminarDetalle" href="#tab-3">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Eliminar</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <p>¿Está seguro que quiere eliminar a &nbsp; &nbsp;?</p>
+                    </div>
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">cerrar</button><button class="btn btn-danger" type="button">Eliminar</button></div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-lg-8 mx-auto">
+                        <ul class="list-inline text-center">
+                            <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse" data-bs-hover-animate="swing"></i></span></li>
+                            <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-facebook fa-stack-1x fa-inverse" data-bs-hover-animate="swing"></i></span></li>
+                            <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse" data-bs-hover-animate="swing"></i></span></li>
+                        </ul>
+                        <p class="text-muted copyright">Copyright&nbsp;©&nbsp;SIC2019</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/clean-blog.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="assets/js/cuentas.js"></script>
+</body>
+
+</html>
